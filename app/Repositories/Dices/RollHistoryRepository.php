@@ -16,9 +16,18 @@ class RollHistoryRepository implements RollHistoryRepositoryInterface
 
     public function getRecentRolls()
     {
-        return RollHistory::query()->where('roll_histories.created_at', '>=', Carbon::now()->subDay())
+        return RollHistory::query()->where('created_at', '>=', Carbon::now()->subDay())
             ->with('user')
-            ->orderBy('roll_histories.created_at')
+            ->orderBy('created_at')
             ->get()?->toArray();
+    }
+
+    public function GetLastDiceRolledByUserId($userId)
+    {
+        return RollHistory::query()->where('user_id', $userId)
+            ->with('user')
+            ->orderBy('roll_histories.created_at', 'desc')
+            ?->first()
+            ?->toArray();
     }
 }

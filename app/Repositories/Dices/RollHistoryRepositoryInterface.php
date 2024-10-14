@@ -9,4 +9,6 @@ interface RollHistoryRepositoryInterface
     public function save(array $data): RollHistory;
 
     public function getRecentRolls();
+
+    public function GetLastDiceRolledByUserId($userId);
 }
